@@ -19,6 +19,12 @@ class RoomList extends Component {
         });
     }
 
+    handleSubmit(e) {
+        this.roomsRef.push({
+            name: e
+        });
+    }
+
     render() {
         return (
             <ul>
@@ -30,6 +36,11 @@ class RoomList extends Component {
                     );
                 } )}
             </ul>
+            <form onSubmit={this.handleSubmit}>
+                <lable for="addRoom">Enter new room name: </lable>
+                <input id="addRoom" type="text" />
+                <input id="submit" type="submit" value="Add Room" />
+            </form>
         );
     }
 }
