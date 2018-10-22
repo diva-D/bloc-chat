@@ -22,7 +22,7 @@ class RoomList extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.roomsRef.push({
-            name: e.target.value
+            name: e.target[0].value
         });
     }
 
