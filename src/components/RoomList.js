@@ -19,28 +19,31 @@ class RoomList extends Component {
         });
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
+        e.preventDefault();
         this.roomsRef.push({
-            name: e
+            name: e.target.value
         });
     }
 
     render() {
         return (
-            <ul>
-                {this.state.rooms.map( room => {
-                    return (
-                        <li key={room.key}>
-                            {room.name}
-                        </li>
-                    );
-                } )}
-            </ul>
-            <form onSubmit={this.handleSubmit}>
-                <lable for="addRoom">Enter new room name: </lable>
-                <input id="addRoom" type="text" />
-                <input id="submit" type="submit" value="Add Room" />
-            </form>
+            <div>
+                <ul>
+                    {this.state.rooms.map( room => {
+                        return (
+                            <li key={room.key}>
+                                {room.name}
+                            </li>
+                        );
+                    } )}
+                </ul>
+                <form onSubmit={this.handleSubmit}>
+                    <label htmlFor="addRoom">Enter new room name: </label>
+                    <input id="addRoom" type="text" />
+                    <input id="submit" type="submit" value="Add Room" />
+                </form>
+            </div>
         );
     }
 }
