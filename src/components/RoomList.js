@@ -32,7 +32,7 @@ class RoomList extends Component {
                 <ul>
                     {this.state.rooms.map( room => {
                         return (
-                            <li key={room.key}>
+                            <li key={room.key} onClick={() => this.props.handleClick(room.key)}>
                                 {room.name}
                             </li>
                         );
