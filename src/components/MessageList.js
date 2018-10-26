@@ -13,10 +13,10 @@ class MessageList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.activeRoom !== this.props.activeRoom) {
+        if (nextProps.activeRoom.key !== this.props.activeRoom.key) {
             this.setState({ messages: [] });
 
-            this.messagesRef.orderByChild("roomID").equalTo(nextProps.activeRoom).on("child_added", (snapshot) => {
+            this.messagesRef.orderByChild("roomID").equalTo(nextProps.activeRoom.key).on("child_added", (snapshot) => {
                 const message = snapshot.val();
                 message.key = snapshot.key;
                 console.log(message.key);
@@ -34,7 +34,7 @@ class MessageList extends Component {
     render() {
         return (
             <div>
-                <h2>Room: { this.props.activeRoom }</h2>
+                <h2>Room: { this.props.activeRoom.name }</h2>
                 <h3>Messages</h3>
                 {this.state.messages
                     .map( message => {

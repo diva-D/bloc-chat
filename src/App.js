@@ -18,15 +18,15 @@ class App extends Component {
     super(props)
 
     this.state = {
-      activeRoom: ''
+      activeRoom: {}
     };
 
   }
 
-  handleClick(key) {
+  handleClick(room) {
     
     this.setState({
-      activeRoom: key
+      activeRoom: room
     });
 
   }
