@@ -27,8 +27,26 @@ class MessageList extends Component {
                 });
             });
         }
+    }
 
+    handleSubmit = (e) => {
+        e.preventDefault();
         
+        let userName;
+        if (this.props.user) {
+            userName = this.props.user.displayName;
+        } else {
+            userName = "Guest";
+        }
+        
+        this.messagesRef.push({
+            username: userName,
+            content: e.target[0].value,
+            roomID: this.props.activeRoom.key,
+            sentAt: (new Date().getTime())
+        });
+
+        document.getElementById("message-send").reset();
     }
 
     render() {
@@ -40,11 +58,23 @@ class MessageList extends Component {
                     .map( message => {
                         return (
                             <div key={message.key}>
-                                {message.content}
+                                <div>
+                                    {message.username}
+                                </div>
+                                <div>
+                                    {message.content}
+                                </div>
+                                <div>
+                                    {message.sentAt}
+                                </div>
                             </div>
                         );
                     } 
                 )}
+                <form id="message-send" onSubmit={this.handleSubmit}>
+                    <input type="text" placeholder="Write your message here..." />
+                    <input type="submit" value="Send"/>
+                </form>
             </div>
         )
     }
