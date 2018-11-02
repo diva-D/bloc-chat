@@ -19,7 +19,6 @@ class MessageList extends Component {
             this.messagesRef.orderByChild("roomID").equalTo(nextProps.activeRoom.key).on("child_added", (snapshot) => {
                 const message = snapshot.val();
                 message.key = snapshot.key;
-                console.log(message.key);
                 this.setState( prevState => {
                     return {
                         messages: prevState.messages.concat(message)
