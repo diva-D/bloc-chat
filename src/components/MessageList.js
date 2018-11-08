@@ -45,6 +45,7 @@ class MessageList extends Component {
             sentAt: (new Date().getTime())
         });
 
+        //clears input box after submit
         document.getElementById("message-send").reset();
     }
 

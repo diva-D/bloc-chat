@@ -19,11 +19,25 @@ class RoomList extends Component {
         });
     }
 
-    handleSubmit = (e) => {
+    handleSubmitAdd = (e) => {
         e.preventDefault();
         this.roomsRef.push({
             name: e.target[0].value
         });
+    }
+
+    handleSubmitDelete = (e) => {
+        e.preventDefault();
+        // https://stackoverflow.com/questions/35929901/firebase-remove-something-by-value
+        let room_name = e.target[0].value
+        this.roomsRef.orderByChild('name').equalTo(room_name).on('child_added', (snapshot) => {
+            snapshot.ref.remove()
+        });
+        // https://stackoverflow.com/questions/36326612/delete-item-from-state-array-in-react
+        let array = [...this.state.rooms];
+        let index = array.indexOf(e.target[0].value);
+        array.splice(index, 1);
+        this.setState({ rooms: array});
     }
 
     render() {
@@ -38,10 +52,24 @@ class RoomList extends Component {
                         );
                     } )}
                 </ul>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmitAdd}>
                     <label htmlFor="addRoom">Enter new room name: </label>
                     <input id="addRoom" type="text" />
                     <input id="submit" type="submit" value="Add Room" />
+                </form>
+                
+                <form onSubmit={this.handleSubmitDelete}>
+                    <label htmlFor="deleteRoom">Delete room: </label>
+                    <select id="roomList">
+                        {this.state.rooms.map( room => {
+                        return (
+                            <option key={room.key} value={room.name}>
+                                {room.name}
+                            </option>
+                        );
+                    } )}
+                    </select>
+                    <input id="deleteSubmit" type="submit" value="Delete Room" />
                 </form>
             </div>
         );
